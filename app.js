@@ -11,11 +11,12 @@ const kindKey=k=>KIND_ALIAS[k]||k||"shelf";
 const PRINTERS=["Core One","Mini+","other"];
 const STORE_KEY="darkstar-filamenti:v1";
 const LANG_KEY="darkstar-filamenti:lang";
+const THEME_KEY="darkstar-filamenti:theme";
 
 /* ---------- traduzioni / translations ---------- */
 const I18N={
 it:{
-  appName:"Filamenti",docTitle:"Darkstar Filamenti",langSwitch:"EN",langLabel:"Switch to English",
+  appName:"Filamenti",themeAuto:"Tema: automatico (segue il dispositivo)",themeLight:"Tema: chiaro",themeDark:"Tema: scuro",docTitle:"Darkstar Filamenti",langSwitch:"EN",langLabel:"Switch to English",
   newSpool:"+ Nuova bobina",logUsage:"Registra consumo",
   tabSpools:"Bobine",tabStorage:"Magazzini",tabUsage:"Consumi",tabTools:"Strumenti",summary:"Riepilogo",
   stAvail:"Disponibile",stValue:"Valore a magazzino",stLow:"In esaurimento",stDry:"Da essiccare",unitSpools:"bobine",
@@ -59,7 +60,7 @@ it:{
   exJob1:"Supporto dischi flex",exJob2:"Staffe quadro elettrico",exJob3:"Organizer cavi",exJob4:"Piedini antivibranti"
 },
 en:{
-  appName:"Filament",docTitle:"Darkstar Filament",langSwitch:"IT",langLabel:"Passa all’italiano",
+  appName:"Filament",themeAuto:"Theme: automatic (follows your device)",themeLight:"Theme: light",themeDark:"Theme: dark",docTitle:"Darkstar Filament",langSwitch:"IT",langLabel:"Passa all’italiano",
   newSpool:"+ New spool",logUsage:"Log usage",
   tabSpools:"Spools",tabStorage:"Storage",tabUsage:"Usage",tabTools:"Tools",summary:"Summary",
   stAvail:"Available",stValue:"Stock value",stLow:"Running low",stDry:"Needs drying",unitSpools:"spools",
@@ -107,6 +108,23 @@ try{const l=localStorage.getItem(LANG_KEY);lang=l||((navigator.language||"it").t
 if(!I18N[lang])lang="en";
 const t=(k,v)=>{let s=(I18N[lang][k]??I18N.it[k]??k);if(v)for(const x in v)s=s.split("{"+x+"}").join(v[x]);return s};
 const loc=()=>lang==="it"?"it-IT":"en-GB";
+
+
+/* ---------- tema chiaro / scuro ---------- */
+const hostTheme=document.documentElement.getAttribute("data-theme");
+let theme="auto";
+try{const v=localStorage.getItem(THEME_KEY);if(v==="light"||v==="dark")theme=v}catch(e){}
+const ICONS={
+  auto:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>',
+  light:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+  dark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'
+};
+function applyTheme(){
+  const root=document.documentElement;
+  if(theme==="auto"){hostTheme?root.setAttribute("data-theme",hostTheme):root.removeAttribute("data-theme")}
+  else root.setAttribute("data-theme",theme);
+}
+applyTheme();
 
 /* ---------- stato ---------- */
 const S={spools:[],locations:[],usage:[],settings:{lowThreshold:150,dryDays:45},loaded:false};
@@ -207,6 +225,7 @@ function applyStatic(){
   const p=$(".plate");if(p)p.setAttribute("aria-label",t("docTitle"));
   const lb=$("#lang-btn");if(lb){lb.textContent=t("langSwitch");lb.setAttribute("aria-label",t("langLabel"));lb.title=t("langLabel")}
   const st=$("#stats");if(st)st.setAttribute("aria-label",t("summary"));
+  const tb=$("#theme-btn");if(tb){const k={auto:"themeAuto",light:"themeLight",dark:"themeDark"}[theme];tb.innerHTML=ICONS[theme];tb.setAttribute("aria-label",t(k));tb.title=t(k)}
 }
 
 /* ---------- render ---------- */
@@ -578,7 +597,8 @@ function importBackup(file){
 
 /* ---------- eventi ---------- */
 document.addEventListener("click",e=>{
-  const el=e.target.closest("[data-tab],[data-act],[data-open],[data-quick],[data-editloc],[data-undo],#lang-btn");if(!el)return;
+  const el=e.target.closest("[data-tab],[data-act],[data-open],[data-quick],[data-editloc],[data-undo],#lang-btn,#theme-btn");if(!el)return;
+  if(el.id==="theme-btn"){theme={auto:"light",light:"dark",dark:"auto"}[theme];try{theme==="auto"?localStorage.removeItem(THEME_KEY):localStorage.setItem(THEME_KEY,theme)}catch(er){}applyTheme();applyStatic();return}
   if(el.id==="lang-btn"){lang=lang==="it"?"en":"it";try{localStorage.setItem(LANG_KEY,lang)}catch(er){}if(dlg.open)dlg.close();render();return}
   if(el.dataset.tab){ui.tab=el.dataset.tab;try{localStorage.setItem("dsf-tab",ui.tab)}catch(er){}render();return}
   if(el.dataset.open){spoolDetail(el.dataset.open);return}

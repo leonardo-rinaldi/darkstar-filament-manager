@@ -31,7 +31,7 @@ It is a static web app made of plain HTML, CSS and JavaScript. There is no serve
   - metres ↔ grams converter by material and diameter;
   - weigh a spool on a scale (gross weight minus tare).
 - **Backup:** export and import all your data as a JSON file.
-- **Languages and themes:** English and Italian with an EN/IT switch, automatic light and dark theme, works on phones.
+- **Languages and themes:** English and Italian with an EN/IT switch, light and dark theme (automatic or chosen with the theme button), works on phones.
 
 ## Getting started
 
@@ -123,7 +123,7 @@ Un gestionale semplice per i filamenti di stampa 3D: inventario delle bobine, ma
   - convertitore metri ↔ grammi per materiale e diametro;
   - pesata con la bilancia (peso lordo meno tara).
 - **Backup:** esportazione e importazione di tutti i dati in un file JSON.
-- **Lingue e temi:** italiano e inglese con il pulsante IT/EN, tema chiaro e scuro automatico, funziona anche da telefono.
+- **Lingue e temi:** italiano e inglese con il pulsante IT/EN, tema chiaro e scuro (automatico o scelto con il pulsante del tema), funziona anche da telefono.
 
 ## Come iniziare
 

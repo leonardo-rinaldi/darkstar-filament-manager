@@ -35,6 +35,8 @@ header.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-
 .plate b{font:700 15px/1 var(--f-display);letter-spacing:.14em;text-transform:uppercase;padding:10px 12px;background:var(--accent-ink);color:var(--accent)}
 .plate span{font:700 22px/1 var(--f-display);letter-spacing:.08em;text-transform:uppercase;padding:7px 12px 6px}
 .top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.icon-btn{min-width:44px;justify-content:center;padding-inline:10px}
+.icon-btn svg{width:18px;height:18px;display:block}
 .lang-btn{font:500 13px var(--f-mono);letter-spacing:.06em;min-width:44px;justify-content:center}
 
 .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:8px 14px;cursor:pointer;font-weight:500;font-size:14px;white-space:nowrap}
