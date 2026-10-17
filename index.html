@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Darkstar Filamenti</title>
+  <meta name="description" content="Gestionale per filamenti di stampa 3D / 3D printing filament manager: spools, storage, usage, drying and costs.">
+  <meta name="theme-color" content="#f2c200">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <img class="logo" src="logo.png" alt="Darkstar Engineering" width="670" height="120">
+      <div class="plate"><span data-i18n="appName">Filamenti</span></div>
+    </div>
+    <div class="top-actions">
+      <button class="btn lang-btn" id="lang-btn" type="button">EN</button>
+      <button class="btn" data-act="log-quick" data-i18n="logUsage">Registra consumo</button>
+      <button class="btn primary" data-act="new-spool" data-i18n="newSpool">+ Nuova bobina</button>
+    </div>
+  </header>
+  <div id="banner" hidden></div>
+  <section class="stats" id="stats" aria-label="Riepilogo"></section>
+  <nav class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-tab="bobine"><span data-i18n="tabSpools">Bobine</span><span class="count" id="c-bobine"></span></button>
+    <button role="tab" data-tab="magazzini"><span data-i18n="tabStorage">Magazzini</span><span class="count" id="c-mag"></span></button>
+    <button role="tab" data-tab="consumi"><span data-i18n="tabUsage">Consumi</span></button>
+    <button role="tab" data-tab="strumenti"><span data-i18n="tabTools">Strumenti</span></button>
+  </nav>
+  <main id="view"></main>
+</div>
+<dialog id="dlg"></dialog>
+<div class="toast" id="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
