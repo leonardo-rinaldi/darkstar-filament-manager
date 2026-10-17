@@ -8,6 +8,11 @@ It is a static web app made of plain HTML, CSS and JavaScript. There is no serve
 
 🇮🇹 **[Leggi in italiano](#italiano)**
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshot-dark.png">
+  <img src="docs/screenshot-light.png" alt="Darkstar Filament Manager: spool inventory with sample data">
+</picture>
+
 ## Features
 
 - **Spools:** for each spool you can record:
@@ -82,6 +87,7 @@ index.html      page structure
 style.css       styling, light and dark themes
 app.js          logic, storage, backup, translations
 logo.png        logo
+docs/           screenshots for this README
 favicon.svg     browser tab icon
 ```
 
